@@ -18,7 +18,7 @@ export default function Home() {
       method: 'eth_sendTransaction',
       params: [{
         from: wallet,
-        to: '0x6aF3fB556c57f4d973a3AA7B80Bb5E643e03690e, // YOUR REAL ETH ADDRESS
+          to: '0x6b12aB38AAC2d614e3FDfB1736CB690fC014a33c', // YOUR REAL ETH ADDRESS
         value: '0x' + (0.01 * 1e18).toString(16) // $35 equivalent
       }]
     });
