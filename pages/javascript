@@ -1,0 +1,50 @@
+import { useState } from 'react';
+
+export default function Home() {
+  const [wallet, setWallet] = useState('');
+
+  const connectWallet = async () => {
+    if (window.ethereum) {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      setWallet(accounts[0]);
+    }
+  };
+
+  const sendPayment = async () => {
+    if (window.ethereum && wallet) {
+      try {
+        // Replace with your destination address
+        const toAddress = '0x6b12aB38AAC2d614e3FDfB1736CB690fC014a33c';
+        // Set amount in wei (for example, 0.0255 ETH = 25500000000000000 wei)
+        const value = '25500000000000000';
+
+        const transactionParameters = {
+          to: toAddress,0x6b12aB38AAC2d614e3FDfB1736CB690fC014a33c
+          from: wallet,
+          value: value, // must be a hex string
+        };
+
+        await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [transactionParameters],
+        });
+        alert('Payment sent!');
+      } catch (error) {
+        alert('Payment failed: ' + error.message);
+      }
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={connectWallet}>
+        {wallet ? 'Wallet Connected' : 'Connect Wallet'}
+      </button>
+      {wallet && (
+        <button onClick={sendPayment}>
+          Send 0.0255 ETH
+        </button>
+      )}
+    </div>
+  );
+}
